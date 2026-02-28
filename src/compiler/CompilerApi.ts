@@ -20,7 +20,6 @@ export interface CompilerApi {
   getDefaultLibFileName: typeof ts.getDefaultLibFileName;
   forEachChild: typeof ts.forEachChild;
   ScriptTarget: typeof ts.ScriptTarget;
-  ScriptKind: typeof ts.ScriptKind;
   SyntaxKind: typeof ts.SyntaxKind;
   ModifierFlags: typeof ts.ModifierFlags;
   ModuleKind: typeof ts.ModuleKind;
@@ -53,7 +52,6 @@ export type Program = ts.Program;
 export type TypeChecker = ts.TypeChecker;
 export type CompilerOptions = ts.CompilerOptions;
 export type ScriptTarget = ts.ScriptTarget;
-export type ScriptKind = ts.ScriptKind;
 export type NodeFlags = ts.NodeFlags;
 export type ObjectFlags = ts.ObjectFlags;
 export type SymbolFlags = ts.SymbolFlags;
