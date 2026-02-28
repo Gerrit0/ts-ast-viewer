@@ -11,7 +11,7 @@ import type {
 export function createSourceFiles(api: CompilerApi, files: Record<string, string>, scriptTarget: ScriptTarget) {
   const sourceFiles: Record<string, SourceFile> = Object.fromEntries(
     Object.entries(files).map(([name, code]) => {
-      return [name, api.createSourceFile(`/${name}`, code, scriptTarget, false)];
+      return [name, api.createSourceFile(name, code, scriptTarget, false)];
     }),
   );
   let bindingResult: { typeChecker: TypeChecker; program: Program } | undefined;
