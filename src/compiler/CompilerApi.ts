@@ -18,6 +18,7 @@ export interface CompilerApi {
   createSourceFile: typeof ts.createSourceFile;
   createProgram: typeof ts.createProgram;
   getDefaultLibFileName: typeof ts.getDefaultLibFileName;
+  getParsedCommandLineOfConfigFile: typeof ts.getParsedCommandLineOfConfigFile,
   forEachChild: typeof ts.forEachChild;
   ScriptTarget: typeof ts.ScriptTarget;
   SyntaxKind: typeof ts.SyntaxKind;
@@ -28,6 +29,8 @@ export interface CompilerApi {
   SymbolFlags: typeof ts.SymbolFlags;
   TypeFlags: typeof ts.TypeFlags;
   FlowFlags: typeof FlowFlags;
+  ModuleResolutionKind: typeof ts.ModuleResolutionKind;
+  JsxEmit: typeof ts.JsxEmit;
   // Internal enum
   CheckFlags: object;
   // Internal enum
@@ -59,6 +62,7 @@ export type TypeFlags = ts.TypeFlags;
 export type SyntaxKind = ts.SyntaxKind;
 export type CompilerHost = ts.CompilerHost;
 export type CommentRange = ts.CommentRange;
+export type ParseConfigFileHost = ts.ParseConfigFileHost;
 
 export interface FlowNode {
   id?: object;

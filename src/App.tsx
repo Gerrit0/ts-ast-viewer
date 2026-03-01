@@ -113,6 +113,7 @@ export function App() {
             dispatch({ type: "SET_SELECTED_NODE", node: descendant });
           }}
           theme={state.editorTheme}
+          fileName={state.currentFile}
           text={state.files[state.currentFile]}
           highlight={getCodeHighlightRange()}
           showInfo

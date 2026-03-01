@@ -13,6 +13,7 @@ export interface CodeEditorProps {
   onChange?: (text: string) => void;
   onClick?: (range: [number, number]) => void;
   theme: CodeEditorTheme;
+  fileName?: string;
   text: string;
   highlight?: { start: number; end: number } | undefined;
   showInfo?: boolean;
@@ -161,7 +162,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         height="100%"
         value={this.props.text}
         theme={this.props.theme == "dark" ? "vs-dark" : "vs"}
-        language="typescript"
+        language={this.props.fileName?.endsWith(".json") ? "json" : "typescript"}
         onChange={(text) => this.props.onChange && this.props.onChange(text)}
         editorDidMount={this.editorDidMount}
         options={{

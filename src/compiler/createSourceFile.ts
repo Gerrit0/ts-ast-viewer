@@ -6,6 +6,7 @@ import type {
   ScriptTarget,
   SourceFile,
   TypeChecker,
+  ParseConfigFileHost,
 } from "./CompilerApi.js";
 
 export function createSourceFiles(api: CompilerApi, files: Record<string, string>, scriptTarget: ScriptTarget) {
@@ -27,14 +28,6 @@ export function createSourceFiles(api: CompilerApi, files: Record<string, string
   }
 
   function getBindingResult() {
-    const options: CompilerOptions = {
-      strict: true,
-      target: scriptTarget,
-      allowJs: true,
-      module: api.ModuleKind.NodeNext,
-      moduleResolution: 99,
-      jsx: 1,
-    };
     const files: { [name: string]: SourceFile | undefined } = {
       ...sourceFiles,
       ...api.tsAstViewer.cachedSourceFiles,
@@ -59,6 +52,30 @@ export function createSourceFiles(api: CompilerApi, files: Record<string, string
       getNewLine: () => "\n",
       getEnvironmentVariable: () => "",
     };
+
+    const parseConfigHost: ParseConfigFileHost = {
+      onUnRecoverableConfigFileDiagnostic: console.error,
+      getCurrentDirectory: () => "/",
+      useCaseSensitiveFileNames: compilerHost.useCaseSensitiveFileNames(),
+      readDirectory(rootDir: string, _extensions: readonly string[], _excludes: readonly string[] | undefined, _includes: readonly string[], _depth?: number): readonly string[] {
+        // Uses the same check as @typescript/vfs, though we might need to handle sub-directories
+        // for this to work properly if the user picks a file with a slash.
+        return rootDir === "/" ? Object.keys(files) : [];
+      },
+      fileExists: compilerHost.fileExists,
+      readFile: compilerHost.readFile,
+    }
+
+    const commandLine = api.getParsedCommandLineOfConfigFile("/tsconfig.json", {}, parseConfigHost);
+    const options = commandLine?.options ?? {
+      strict: true,
+      target: scriptTarget,
+      allowJs: true,
+      module: api.ModuleKind.NodeNext,
+      moduleResolution: api.ModuleResolutionKind.NodeNext,
+      jsx: api.JsxEmit.Preserve,
+    };
+
     const program = api.createProgram([...Object.keys(files)], options, compilerHost);
     const typeChecker = program.getTypeChecker();
 
