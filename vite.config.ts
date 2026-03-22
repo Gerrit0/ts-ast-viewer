@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import * as monacoEditorPlugin from "vite-plugin-monaco-editor";
 
 export default defineConfig({
+  base: "./",
   plugins: [
     react(),
     (monacoEditorPlugin as any).default.default({}),
