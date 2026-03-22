@@ -18,7 +18,7 @@ export interface CompilerApi {
   createSourceFile: typeof ts.createSourceFile;
   createProgram: typeof ts.createProgram;
   getDefaultLibFileName: typeof ts.getDefaultLibFileName;
-  getParsedCommandLineOfConfigFile: typeof ts.getParsedCommandLineOfConfigFile,
+  getParsedCommandLineOfConfigFile: typeof ts.getParsedCommandLineOfConfigFile;
   forEachChild: typeof ts.forEachChild;
   ScriptTarget: typeof ts.ScriptTarget;
   SyntaxKind: typeof ts.SyntaxKind;
