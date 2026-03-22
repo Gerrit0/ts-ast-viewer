@@ -29,7 +29,7 @@ jobs:
           deno task test
           deno task predeploy
       - name: Deploy
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
